@@ -92,6 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
           debugPrint(emailController.text);
+          if(emailController.text == 'rabi' && passwordController.text == 'asd') {
+            Navigator.push(context, MaterialPageRoute(builder: (context) { return Register(true);}));
+          }
         },
         child: Text("Login",
             textAlign: TextAlign.center,
@@ -127,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
           debugPrint(emailController.text);
-          Navigator.push(context, MaterialPageRoute(builder: (context) { return Register();}));
+          Navigator.push(context, MaterialPageRoute(builder: (context) { return Register(false);}));
         },
         child: Text("Register",
             textAlign: TextAlign.center,

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/register/register.dart';
+import 'package:flutter_app/forgot_password/forgot_password.dart';
 
-class Register extends StatelessWidget {
-  bool isAdmin = false;
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  Register(this.isAdmin);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +21,7 @@ class Register extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: this.isAdmin),
+      home: MyHomePage(title: 'Flutter Login'),
     );
   }
 }
@@ -39,17 +38,14 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  bool title;
+  final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(this.title);
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
-
-  bool isAdmin = false;
-  _MyHomePageState(this.isAdmin);
 
   @override
   Widget build(BuildContext context) {
@@ -60,58 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
 
-    TextEditingController firstNameController = new TextEditingController();
-    TextEditingController lastNameController = new TextEditingController();
     TextEditingController emailController = new TextEditingController();
-    TextEditingController phoneNoController = new TextEditingController();
     TextEditingController passwordController = new TextEditingController();
-    TextEditingController rePasswordController = new TextEditingController();
-    String dropdownValue = 'Admin';
-    Widget userTypeDropdown;
-
-    if(this.isAdmin) {
-      userTypeDropdown = DropdownButton<String>(
-        value: dropdownValue,
-        onChanged: (String newValue) {
-          setState(() {
-            dropdownValue = newValue;
-          });
-        },
-        items: <String>['Admin', 'User']
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        })
-            .toList(),
-      );
-    }
-    else {
-      userTypeDropdown = Text('User Type: User');
-    }
-
-    final firstNameField = TextField(
-      obscureText: false,
-      style: style,
-      controller: firstNameController,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "FirstName",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-
-    final lastNameField = TextField(
-      obscureText: false,
-      style: style,
-      controller: lastNameController,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "LastName",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
 
     final emailField = TextField(
       obscureText: false,
@@ -119,18 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: emailController,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Email",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-
-    final phoneNoField = TextField(
-      obscureText: false,
-      style: style,
-      controller: phoneNoController,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "phoneno",
+          hintText: "Email or Phone no.",
           border:
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
@@ -145,16 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
           border:
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
-    final rePasswordField = TextField(
-      obscureText: false,
-      style: style,
-      controller: rePasswordController,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Re Password",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
 
     final loginButon = Material(
       elevation: 5.0,
@@ -164,7 +89,43 @@ class _MyHomePageState extends State<MyHomePage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          debugPrint(firstNameController.text);
+          debugPrint(emailController.text);
+        },
+        child: Text("Login",
+            textAlign: TextAlign.center,
+            style: style.copyWith(
+                color: Colors.white, fontWeight: FontWeight.bold)),
+      ),
+    );
+
+    final forgotPasswordButon = Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.circular(30.0),
+      color: Color(0xff01A0C7),
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        onPressed: () {
+          debugPrint(emailController.text);
+          Navigator.push(context, MaterialPageRoute(builder: (context) { return ForgotPassword();}));
+        },
+        child: Text("Forgot Password",
+            textAlign: TextAlign.center,
+            style: style.copyWith(
+                color: Colors.white, fontWeight: FontWeight.bold)),
+      ),
+    );
+
+    final registerButon = Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.circular(30.0),
+      color: Color(0xff01A0C7),
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        onPressed: () {
+          debugPrint(emailController.text);
+          Navigator.push(context, MaterialPageRoute(builder: (context) { return Register(false);}));
         },
         child: Text("Register",
             textAlign: TextAlign.center,
@@ -174,9 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Register'),
-      ),
+        appBar: AppBar(
+          title: Text('Login'),
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Container(
@@ -188,23 +149,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: 25.0),
-                    userTypeDropdown,
-                    SizedBox(height: 25.0),
-                    firstNameField,
-                    SizedBox(height: 25.0),
-                    lastNameField,
-                    SizedBox(height: 25.0),
                     emailField,
                     SizedBox(height: 25.0),
-                    phoneNoField,
-                    SizedBox(height: 25.0),
                     passwordField,
-                    SizedBox(height: 25.0),
-                    rePasswordField,
                     SizedBox(
                       height: 35.0,
                     ),
                     loginButon,
+                    SizedBox(height: 25.0),
+                    forgotPasswordButon,
+                    SizedBox(height: 25.0),
+                    registerButon,
                     SizedBox(
                       height: 15.0,
                     ),
